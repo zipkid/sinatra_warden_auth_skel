@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sinatra Warden Example</title>
+
+    <meta charset="utf8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <style>
+    body {
+      margin: 10px auto;
+      width: 800px;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Sinatra Warden Example</h1>
+
+    <% if flash[:notice] %>
+    <div style="color:black;">
+      <%= flash[:notice] %>
+    </div>
+    <% end %>
+
+    <p>
+      <% if ! env['warden'].authenticated? %>
+      <a href="/auth/login">Log In</a>
+      <% else %>
+      <a href="/protected">Protected Page</a> | <a href="/auth/logout">Log Out</a>
+      <% end %>
+    </p>
+
+
+    <% if flash[:success] %>
+    <div style="color:green;">
+      <%= flash[:success] %>
+    </div>
+    <% end %>
+
+    <% if flash[:error] %>
+    <div style="color:red;">
+      <%= flash[:error] %>
+    </div>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
